@@ -1,0 +1,18 @@
+{
+  "name": "LoteriAndo",
+  "short_name": "LoteriAndo",
+  "description": "Consulta de matrizes V-K-T-M e quantidade de apostas.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7fbff",
+  "theme_color": "#0b5cab",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
