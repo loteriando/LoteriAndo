@@ -91,6 +91,30 @@ button:hover{background:#084f95}
   .panel{padding:18px;}
 }
 
+
+/* ===== RANKING 13.13.2 ===== */
+.ranking-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:4px;}
+.concurso-box{min-width:170px;}
+.concurso-box label{display:block;height:auto;margin:0 0 6px 2px;font-size:12px;color:#55718a;}
+.concurso-box select{width:100%;height:44px;border:1px solid #bcd8ee;border-radius:10px;background:#fbfdff;color:#12304a;padding:0 12px;font-size:16px;font-weight:700;outline:none;}
+.concurso-box select:focus{border-color:#1685d8;box-shadow:0 0 0 3px rgba(22,133,216,.12);}
+.ranking-status{min-height:38px;display:flex;align-items:center;margin:12px 0;color:#55718a;font-size:13px;}
+.ranking-status.ok{color:#18794e;font-weight:700;}
+.ranking-status.error{color:#b42318;font-weight:700;}
+.ranking-table-wrap{width:100%;overflow-x:auto;border:1px solid #dceeff;border-radius:14px;background:#fff;}
+.ranking-table{width:100%;border-collapse:collapse;min-width:820px;font-size:13px;}
+.ranking-table th{background:#edf7ff;color:#315c7d;font-size:11px;text-transform:uppercase;letter-spacing:.3px;padding:11px 9px;text-align:center;white-space:nowrap;border-bottom:1px solid #cfe2f3;}
+.ranking-table td{padding:9px 8px;text-align:center;border-bottom:1px solid #edf3f7;color:#23465f;white-space:nowrap;}
+.ranking-table tbody tr:hover{background:#f7fbff;}
+.ranking-table tbody tr:last-child td{border-bottom:0;}
+.ranking-table td:nth-child(1),.ranking-table td:nth-child(2){font-weight:700;}
+.ranking-table td:last-child{font-weight:800;color:#0b5cab;}
+.ranking-loading{height:180px;color:#6b8499!important;font-weight:400!important;}
+@media(max-width:700px){
+  .ranking-head{align-items:stretch;flex-direction:column;gap:12px;}
+  .concurso-box{min-width:0;}
+}
+
 </style>
 </head>
 <body>
@@ -115,10 +139,40 @@ button:hover{background:#084f95}
 
 <section id="janela-ranking" class="janela janela-ranking active">
   <div class="panel">
-    <h2 class="panel-title">Ranking dos 84 Grupos</h2>
-    <p class="panel-subtitle">Classificação dos grupos pelo Índice LoteriAndo</p>
-    <div class="placeholder">
-      <div><strong>RANKING DOS 84 GRUPOS</strong><br><br>A fotografia do concurso será carregada nesta área.</div>
+    <div class="ranking-head">
+      <div>
+        <h2 class="panel-title">Ranking dos 84 Grupos</h2>
+        <p class="panel-subtitle">Classificação dos grupos pela fotografia do Índice LoteriAndo</p>
+      </div>
+      <div class="concurso-box">
+        <label for="concursoRanking">Concurso</label>
+        <select id="concursoRanking" onchange="carregarRanking(this.value)">
+          <option value="3049" selected>3049</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="rankingStatus" class="ranking-status">Carregando fotografia do concurso 3049...</div>
+
+    <div class="ranking-table-wrap">
+      <table class="ranking-table">
+        <thead>
+          <tr>
+            <th>Pos.</th>
+            <th>Grupo</th>
+            <th>Quadras</th>
+            <th>Quinas</th>
+            <th>Senas</th>
+            <th>Atraso Q</th>
+            <th>Atraso Qn</th>
+            <th>Atraso S</th>
+            <th>Índice LoteriAndo</th>
+          </tr>
+        </thead>
+        <tbody id="rankingBody">
+          <tr><td colspan="9" class="ranking-loading">Carregando...</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -215,6 +269,82 @@ document.addEventListener("keydown", e=>{
   if(e.key==="Enter") consultar();
 });
 </script>
+
+<script>
+/* ===== SUPABASE / RANKING 13.13.2 ===== */
+const LOTERIANDO_SUPABASE_URL = 'https://dqaaptwiqerlrzpzblhy.supabase.co';
+const LOTERIANDO_PUBLISHABLE_KEY = 'sb_publishable_EvShyIej85L86ydlbpKhBg_AfiLBK9K';
+
+function formatarNumero(valor, casas=2){
+  if(valor === null || valor === undefined || valor === '') return '—';
+  const n=Number(valor);
+  if(!Number.isFinite(n)) return String(valor);
+  return n.toLocaleString('pt-BR',{minimumFractionDigits:casas,maximumFractionDigits:casas});
+}
+
+function criarUrlSnapshot(concurso){
+  const params=new URLSearchParams({
+    concurso_referencia:`eq.${concurso}`,
+    select:'numero_grupo,posicao_ranking,total_quadras,total_quinas,total_senas,atraso_quadra,atraso_quina,atraso_sena,indice_loteriando',
+    order:'posicao_ranking.asc',
+    apikey:LOTERIANDO_PUBLISHABLE_KEY
+  });
+  return `${LOTERIANDO_SUPABASE_URL}/rest/v1/snapshot_grupos?${params.toString()}`;
+}
+
+async function carregarRanking(concurso='3049'){
+  const status=document.getElementById('rankingStatus');
+  const body=document.getElementById('rankingBody');
+  status.className='ranking-status';
+  status.textContent=`Carregando fotografia do concurso ${concurso}...`;
+  body.innerHTML='<tr><td colspan="9" class="ranking-loading">Carregando...</td></tr>';
+
+  try{
+    const resposta=await fetch(criarUrlSnapshot(concurso),{method:'GET'});
+    const dados=await resposta.json();
+
+    if(!resposta.ok){
+      throw new Error(dados?.message || `HTTP ${resposta.status}`);
+    }
+
+    if(!Array.isArray(dados)){
+      throw new Error('Resposta inválida da API.');
+    }
+
+    if(dados.length===0){
+      body.innerHTML='<tr><td colspan="9" class="ranking-loading">Nenhuma fotografia encontrada para este concurso.</td></tr>';
+      status.className='ranking-status error';
+      status.textContent=`Concurso ${concurso}: nenhuma fotografia disponível.`;
+      return;
+    }
+
+    body.innerHTML=dados.map(item=>`
+      <tr>
+        <td>${item.posicao_ranking ?? '—'}</td>
+        <td>Grupo ${String(item.numero_grupo).padStart(2,'0')}</td>
+        <td>${item.total_quadras ?? '—'}</td>
+        <td>${item.total_quinas ?? '—'}</td>
+        <td>${item.total_senas ?? '—'}</td>
+        <td>${item.atraso_quadra ?? '—'}</td>
+        <td>${item.atraso_quina ?? '—'}</td>
+        <td>${item.atraso_sena ?? '—'}</td>
+        <td>${formatarNumero(item.indice_loteriando)}</td>
+      </tr>`).join('');
+
+    status.className='ranking-status ok';
+    status.textContent=`Concurso ${concurso} • ${dados.length} grupos carregados da fotografia.`;
+
+  }catch(erro){
+    console.error('Erro ao carregar Ranking:',erro);
+    body.innerHTML='<tr><td colspan="9" class="ranking-loading">Não foi possível carregar o Ranking.</td></tr>';
+    status.className='ranking-status error';
+    status.textContent=`Erro ao consultar a fotografia: ${erro.message}`;
+  }
+}
+
+document.addEventListener('DOMContentLoaded',()=>carregarRanking('3049'));
+</script>
+
 <script>
 function abrirJanela(nome, botao){
   document.querySelectorAll('.janela').forEach(janela=>janela.classList.remove('active'));
