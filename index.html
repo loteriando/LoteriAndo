@@ -174,6 +174,38 @@ button:hover{background:#084f95}
         </tbody>
       </table>
     </div>
+
+    <div id="grupoDetalhe" class="grupo-detalhe" aria-live="polite">
+      <div class="grupo-detalhe-head">
+        <h3 id="grupoDetalheTitulo" class="grupo-detalhe-title">Grupo selecionado</h3>
+        <div id="grupoDetalhePos" class="grupo-detalhe-pos"></div>
+      </div>
+      <div class="grupo-metricas">
+        <div class="grupo-metrica"><div class="rotulo">Quadras</div><div id="gdQuadras" class="valor">—</div></div>
+        <div class="grupo-metrica"><div class="rotulo">Quinas</div><div id="gdQuinas" class="valor">—</div></div>
+        <div class="grupo-metrica"><div class="rotulo">Senas</div><div id="gdSenas" class="valor">—</div></div>
+        <div class="grupo-metrica"><div class="rotulo">Atraso Quadra</div><div id="gdAtrasoQ" class="valor">—</div></div>
+        <div class="grupo-metrica"><div class="rotulo">Atraso Quina</div><div id="gdAtrasoQn" class="valor">—</div></div>
+        <div class="grupo-metrica"><div class="rotulo">Atraso Sena</div><div id="gdAtrasoS" class="valor">—</div></div>
+        <div class="grupo-metrica indice"><div class="rotulo">Índice LoteriAndo</div><div id="gdIndice" class="valor">—</div></div>
+      </div>
+      <div id="grupoEstatistica" class="grupo-estatistica">
+      <h4 class="grupo-estatistica-title">Estatísticas do grupo</h4>
+      <p class="grupo-estatistica-sub">Indicadores que compõem o Índice LoteriAndo na fotografia selecionada.</p>
+      <div class="grupo-cards">
+        <div class="grupo-card"><div class="rotulo">Score atraso</div><div id="gdScoreAtraso" class="valor">—</div></div>
+        <div class="grupo-card"><div class="rotulo">Score frequência</div><div id="gdScoreFrequencia" class="valor">—</div></div>
+        <div class="grupo-card"><div class="rotulo">Score recência</div><div id="gdScoreRecencia" class="valor">—</div></div>
+        <div class="grupo-card"><div class="rotulo">Score tendência</div><div id="gdScoreTendencia" class="valor">—</div></div>
+        <div class="grupo-card"><div class="rotulo">Score consistência</div><div id="gdScoreConsistencia" class="valor">—</div></div>
+      </div>
+      <div class="grupo-historico-vazio">
+        O histórico completo será conectado em uma etapa posterior. Nesta fase, exibimos somente os indicadores já armazenados na fotografia.
+      </div>
+    </div>
+
+    <p class="grupo-detalhe-hint">Clique em outro grupo para consultar seus indicadores. Esta informação vem da mesma fotografia do concurso selecionado.</p>
+    </div>
   </div>
 </section>
 
@@ -318,8 +350,8 @@ async function carregarRanking(concurso='3049'){
       return;
     }
 
-    body.innerHTML=dados.map(item=>`
-      <tr>
+    body.innerHTML=dados.map((item,index)=>`
+      <tr data-ranking-index="${index}" onclick="selecionarGrupo(${index})">
         <td>${item.posicao_ranking ?? '—'}</td>
         <td>Grupo ${String(item.numero_grupo).padStart(2,'0')}</td>
         <td>${item.total_quadras ?? '—'}</td>
@@ -331,6 +363,9 @@ async function carregarRanking(concurso='3049'){
         <td>${formatarNumero(item.indice_loteriando)}</td>
       </tr>`).join('');
 
+    window.rankingAtual = dados;
+    document.getElementById('grupoDetalhe').classList.remove('active');
+
     status.className='ranking-status ok';
     status.textContent=`Concurso ${concurso} • ${dados.length} grupos carregados da fotografia.`;
 
@@ -340,6 +375,38 @@ async function carregarRanking(concurso='3049'){
     status.className='ranking-status error';
     status.textContent=`Erro ao consultar a fotografia: ${erro.message}`;
   }
+}
+
+function selecionarGrupo(index){
+  const dados=window.rankingAtual || [];
+  const item=dados[index];
+  if(!item) return;
+
+  document.querySelectorAll('#rankingBody tr').forEach(tr=>tr.classList.remove('selected'));
+  const linha=document.querySelector(`#rankingBody tr[data-ranking-index="${index}"]`);
+  if(linha) linha.classList.add('selected');
+
+  document.getElementById('grupoDetalheTitulo').textContent =
+    `Grupo ${String(item.numero_grupo).padStart(2,'0')}`;
+  document.getElementById('grupoDetalhePos').textContent =
+    `Posição no ranking: ${item.posicao_ranking ?? '—'}`;
+
+  document.getElementById('gdQuadras').textContent = item.total_quadras ?? '—';
+  document.getElementById('gdQuinas').textContent = item.total_quinas ?? '—';
+  document.getElementById('gdSenas').textContent = item.total_senas ?? '—';
+  document.getElementById('gdAtrasoQ').textContent = item.atraso_quadra ?? '—';
+  document.getElementById('gdAtrasoQn').textContent = item.atraso_quina ?? '—';
+  document.getElementById('gdAtrasoS').textContent = item.atraso_sena ?? '—';
+  document.getElementById('gdIndice').textContent = formatarNumero(item.indice_loteriando);
+  document.getElementById('gdScoreAtraso').textContent = formatarNumero(item.score_atraso);
+  document.getElementById('gdScoreFrequencia').textContent = formatarNumero(item.score_frequencia);
+  document.getElementById('gdScoreRecencia').textContent = formatarNumero(item.score_recencia);
+  document.getElementById('gdScoreTendencia').textContent = formatarNumero(item.score_tendencia);
+  document.getElementById('gdScoreConsistencia').textContent = formatarNumero(item.score_consistencia);
+
+  document.getElementById('grupoDetalhe').classList.add('active');
+  document.getElementById('grupoEstatistica').classList.add('active');
+  document.getElementById('grupoDetalhe').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 document.addEventListener('DOMContentLoaded',()=>carregarRanking('3049'));
