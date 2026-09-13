@@ -10,53 +10,33 @@
 <title>LoteriAndo</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0; min-height:100vh; font-family:Arial,sans-serif;
-  background:linear-gradient(160deg,#eaf4ff 0%,#f7fbff 55%,#eef6ff 100%);
-  color:#12304a;
-}
-.wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
-.card{
-  width:min(450px,100%); background:#fff; border-radius:26px;
-  padding:30px 24px 22px; box-shadow:0 12px 36px rgba(17,85,140,.14);
-  border:1px solid #dceeff;
-}
-.brand{text-align:center;margin-bottom:8px}
-.app-icon{width:86px;height:86px;object-fit:cover;border-radius:20px;display:block;margin:0 auto 10px;box-shadow:0 6px 16px rgba(11,92,171,.20)}
-.brand h1{margin:0;color:#0b5cab;font-size:32px;letter-spacing:.2px}
-.subtitle{text-align:center;color:#55718a;margin:8px 0 25px;font-size:15px;line-height:1.4}
-.help{
-  background:#edf7ff;border:1px solid #cfe9ff;border-radius:14px;
-  padding:13px 14px;margin-bottom:18px;color:#315c7d;font-size:13px;line-height:1.45;
-}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-label{display:flex;align-items:flex-start;height:36px;font-size:13px;line-height:17px;font-weight:700;margin:0 0 6px 4px;color:#315c7d}
-input{
-  width:100%;height:52px;border:1px solid #bcd8ee;border-radius:12px;
-  padding:0 14px;font-size:20px;text-align:center;outline:none;color:#12304a;
-  background:#fbfdff;
-}
-input:focus{border-color:#1685d8;box-shadow:0 0 0 3px rgba(22,133,216,.12)}
-button{
-  width:100%;height:54px;margin-top:20px;border:0;border-radius:13px;
-  background:#0b5cab;color:#fff;font-size:17px;font-weight:700;cursor:pointer;
-  box-shadow:0 5px 12px rgba(11,92,171,.22);
-}
-button:hover{background:#084f95}
-.result{
-  margin-top:22px;min-height:112px;border-radius:16px;background:#f4faff;
-  border:1px solid #d7ecff;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;padding:12px;
-}
-.result .key{font-size:13px;color:#6b8499;margin-bottom:7px}
-.result .number{font-size:39px;font-weight:800;line-height:1;color:#0b5cab}
-.result .label{font-size:13px;color:#55718a;margin-top:7px;letter-spacing:1px}
-.error{font-size:17px;font-weight:700;color:#b42318}
-.footer{text-align:center;color:#8aa0b2;font-size:11px;margin-top:17px}.developer{text-align:center;color:#6f879a;font-size:11px;margin-top:6px}
-@media (max-width:360px){
-  .card{padding:25px 18px 20px} .app-icon{width:86px;height:86px;object-fit:cover;border-radius:20px;display:block;margin:0 auto 10px;box-shadow:0 6px 16px rgba(11,92,171,.20)}
-.brand h1{font-size:29px}
-}
+html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;}
+body{min-height:100vh;background:linear-gradient(160deg,#eaf4ff 0%,#f7fbff 55%,#eef6ff 100%);color:#12304a;}
+button,input,select{font:inherit;}
+button{cursor:pointer;}
+
+/* Calculadora: estilos totalmente isolados para não interferir no Ranking */
+.janela-calculadora .calc-wrap{min-height:calc(100vh - 136px);display:flex;align-items:center;justify-content:center;padding:18px;}
+.janela-calculadora .calc-card{width:min(450px,100%);background:#fff;border-radius:26px;padding:30px 24px 22px;box-shadow:0 12px 36px rgba(17,85,140,.14);border:1px solid #dceeff;}
+.janela-calculadora .calc-brand{text-align:center;margin-bottom:8px;}
+.janela-calculadora .calc-icon{width:86px;height:86px;object-fit:cover;border-radius:20px;display:block;margin:0 auto 10px;box-shadow:0 6px 16px rgba(11,92,171,.20)}
+.janela-calculadora .calc-brand h1{margin:0;color:#0b5cab;font-size:32px;letter-spacing:.2px}
+.janela-calculadora .calc-subtitle{text-align:center;color:#55718a;margin:8px 0 25px;font-size:15px;line-height:1.4}
+.janela-calculadora .calc-help{background:#edf7ff;border:1px solid #cfe9ff;border-radius:14px;padding:13px 14px;margin-bottom:18px;color:#315c7d;font-size:13px;line-height:1.45}
+.janela-calculadora .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.janela-calculadora .calc-grid label{display:flex;align-items:flex-start;height:36px;font-size:13px;line-height:17px;font-weight:700;margin:0 0 6px 4px;color:#315c7d}
+.janela-calculadora .calc-grid input{width:100%;height:52px;border:1px solid #bcd8ee;border-radius:12px;padding:0 14px;font-size:20px;text-align:center;outline:none;color:#12304a;background:#fbfdff}
+.janela-calculadora .calc-grid input:focus{border-color:#1685d8;box-shadow:0 0 0 3px rgba(22,133,216,.12)}
+.janela-calculadora .calc-submit{width:100%;height:54px;margin-top:20px;border:0;border-radius:13px;background:#0b5cab;color:#fff;font-size:17px;font-weight:700;box-shadow:0 5px 12px rgba(11,92,171,.22)}
+.janela-calculadora .calc-submit:hover{background:#084f95}
+.janela-calculadora .calc-result{margin-top:22px;min-height:112px;border-radius:16px;background:#f4faff;border:1px solid #d7ecff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px}
+.janela-calculadora .calc-result .key{font-size:13px;color:#6b8499;margin-bottom:7px}
+.janela-calculadora .calc-result .number{font-size:39px;font-weight:800;line-height:1;color:#0b5cab}
+.janela-calculadora .calc-result .label{font-size:13px;color:#55718a;margin-top:7px;letter-spacing:1px}
+.janela-calculadora .calc-error{font-size:17px;font-weight:700;color:#b42318}
+.janela-calculadora .calc-footer{text-align:center;color:#8aa0b2;font-size:11px;margin-top:17px}
+.janela-calculadora .calc-developer{text-align:center;color:#6f879a;font-size:11px;margin-top:6px}
+@media(max-width:360px){.janela-calculadora .calc-card{padding:25px 18px 20px}.janela-calculadora .calc-brand h1{font-size:29px}}
 
 
 /* ===== LOTERIANDO — ESTRUTURA PRINCIPAL 13.13.1 ===== */
@@ -104,6 +84,16 @@ button:hover{background:#084f95}
 .ranking-table-wrap{width:100%;overflow-x:auto;border:1px solid #dceeff;border-radius:14px;background:#fff;}
 .ranking-table{width:100%;border-collapse:collapse;min-width:820px;font-size:13px;}
 .ranking-table th{background:#edf7ff;color:#315c7d;font-size:11px;text-transform:uppercase;letter-spacing:.3px;padding:11px 9px;text-align:center;white-space:nowrap;border-bottom:1px solid #cfe2f3;}
+.ranking-table th.sortable{cursor:pointer;user-select:none;transition:background .15s,color .15s}
+.ranking-table th.sortable:hover{background:#dcefff;color:#0b5cab}
+.ranking-table th.sort-active{background:#d7edff;color:#0b5cab}
+.sort-indicator{display:inline-block;min-width:12px;margin-left:4px;font-size:10px}
+.historico-controls{display:flex;align-items:end;gap:7px;margin-top:8px}
+.historico-btn{height:38px;min-width:38px;border:1px solid #bcd8ee;border-radius:9px;background:#fff;color:#0b5cab;font-weight:800;cursor:pointer}
+.historico-btn:hover:not(:disabled){background:#edf7ff}
+.historico-btn:disabled{opacity:.45;cursor:not-allowed}
+.historico-select{flex:1}
+
 .ranking-table td{padding:9px 8px;text-align:center;border-bottom:1px solid #edf3f7;color:#23465f;white-space:nowrap;}
 .ranking-table tbody tr:hover{background:#f7fbff;}
 .ranking-table tbody tr:last-child td{border-bottom:0;}
@@ -154,7 +144,7 @@ button:hover{background:#084f95}
       <img src="loteriando-icon.png" alt="LoteriAndo">
       <div>
         <div class="top-brand-title">LoteriAndo</div>
-        <div class="top-brand-subtitle">Análise dos 84 grupos</div><div id="appVersion" class="app-version">v13.13.4</div>
+        <div class="top-brand-subtitle">Análise dos 84 grupos</div><div id="appVersion" class="app-version">v13.13.5</div>
       </div>
     </div>
   </div>
@@ -173,10 +163,15 @@ button:hover{background:#084f95}
         <p class="panel-subtitle">Classificação dos grupos pela fotografia do Índice LoteriAndo</p>
       </div>
       <div class="concurso-box">
-        <label for="concursoRanking">Concurso</label>
-        <select id="concursoRanking" onchange="carregarRanking(this.value)">
-          <option value="3049" selected>3049</option>
+        <label for="concursoRanking">Histórico dos concursos</label>
+        <select id="concursoRanking" class="historico-select" onchange="mudarConcurso(this.value)">
         </select>
+        <div class="historico-controls" aria-label="Navegação histórica">
+          <button type="button" class="historico-btn" id="btnPrimeiro" title="Ir para o concurso 1" onclick="irParaConcurso(1)">⏮</button>
+          <button type="button" class="historico-btn" id="btnAnterior" title="Concurso anterior" onclick="navegarConcurso(-1)">◀</button>
+          <button type="button" class="historico-btn" id="btnProximo" title="Próximo concurso" onclick="navegarConcurso(1)">▶</button>
+          <button type="button" class="historico-btn" id="btnUltimo" title="Ir para o concurso 3049" onclick="irParaConcurso(3049)">⏭</button>
+        </div>
       </div>
     </div>
 
@@ -186,15 +181,15 @@ button:hover{background:#084f95}
       <table class="ranking-table">
         <thead>
           <tr>
-            <th>Pos.</th>
-            <th>Grupo</th>
-            <th>Quadras</th>
-            <th>Quinas</th>
-            <th>Senas</th>
-            <th>Atraso Q</th>
-            <th>Atraso Qn</th>
-            <th>Atraso S</th>
-            <th>Índice LoteriAndo</th>
+            <th class="sortable" data-sort="posicao_ranking" onclick="ordenarRanking('posicao_ranking')">Pos.<span class="sort-indicator">↕</span></th>
+            <th class="sortable" data-sort="numero_grupo" onclick="ordenarRanking('numero_grupo')">Grupo<span class="sort-indicator">↕</span></th>
+            <th class="sortable" data-sort="total_quadras" onclick="ordenarRanking('total_quadras')">Quadras<span class="sort-indicator">↕</span></th>
+            <th class="sortable" data-sort="total_quinas" onclick="ordenarRanking('total_quinas')">Quinas<span class="sort-indicator">↕</span></th>
+            <th class="sortable" data-sort="total_senas" onclick="ordenarRanking('total_senas')">Senas<span class="sort-indicator">↕</span></th>
+            <th class="sortable" data-sort="atraso_quadra" onclick="ordenarRanking('atraso_quadra')">Atraso Q<span class="sort-indicator">↕</span></th>
+            <th class="sortable" data-sort="atraso_quina" onclick="ordenarRanking('atraso_quina')">Atraso Qn<span class="sort-indicator">↕</span></th>
+            <th class="sortable" data-sort="atraso_sena" onclick="ordenarRanking('atraso_sena')">Atraso S<span class="sort-indicator">↕</span></th>
+            <th class="sortable" data-sort="indice_loteriando" onclick="ordenarRanking('indice_loteriando')">Índice LoteriAndo<span class="sort-indicator">↕</span></th>
           </tr>
         </thead>
         <tbody id="rankingBody">
@@ -241,17 +236,17 @@ button:hover{background:#084f95}
 </div>
 
 <section id="janela-calculadora" class="janela janela-calculadora">
-<div class="wrap">
-<div class="card">
-  <div class="brand"><img class="app-icon" src="loteriando-icon.png" alt="Ícone do LoteriAndo"><h1>LoteriAndo</h1></div>
-  <div class="subtitle">Descubra quantas apostas são necessárias para uma determinada configuração.</div>
+<div class="calc-wrap">
+<div class="calc-card">
+  <div class="calc-brand"><img class="calc-icon" src="loteriando-icon.png" alt="Ícone do LoteriAndo"><h1>LoteriAndo</h1></div>
+  <div class="calc-subtitle">Descubra quantas apostas são necessárias para uma determinada configuração.</div>
 
-  <div class="help">
+  <div class="calc-help">
     Informe os quatro valores da matriz. Eles representam o total de números,
     quantos números terá cada aposta e os parâmetros de garantia da matriz.
   </div>
 
-  <div class="grid">
+  <div class="calc-grid">
     <div>
       <label for="v">Quantidade total de números</label>
       <input id="v" type="number" min="1" inputmode="numeric" placeholder="Ex.: 60">
@@ -270,13 +265,13 @@ button:hover{background:#084f95}
     </div>
   </div>
 
-  <button onclick="consultar()">CONSULTAR QUANTIDADE</button>
+  <button type="button" class="calc-submit" onclick="consultar()">CONSULTAR QUANTIDADE</button>
 
-  <div class="result" id="resultado">
+  <div class="calc-result" id="resultado">
     <div class="key">O resultado aparecerá aqui</div>
   </div>
 
-  <div class="footer">Base local • 10.510 configurações disponíveis</div><div class="developer">Desenvolvido por: Livonaldo J Marques</div>
+  <div class="calc-footer">Base local • 10.510 configurações disponíveis</div><div class="calc-developer">Desenvolvido por: Livonaldo J Marques</div>
 </div>
 </div>
 </section>
@@ -299,19 +294,19 @@ function consultar(){
   const r=document.getElementById("resultado");
 
   if(vals.some(x=>!x)){
-    r.innerHTML='<div class="error">Preencha os quatro campos.</div>';
+    r.innerHTML='<div class="calc-error">Preencha os quatro campos.</div>';
     return;
   }
 
   const nums=vals.map(Number);
   if(nums.some(n=>!Number.isInteger(n) || n < 1)){
-    r.innerHTML='<div class="error">Informe somente números inteiros positivos.</div>';
+    r.innerHTML='<div class="calc-error">Informe somente números inteiros positivos.</div>';
     return;
   }
 
   const [v,k,t,m]=nums;
   if(k>v || t>k || m>v){
-    r.innerHTML='<div class="error">Os valores informados não formam uma configuração válida.</div>';
+    r.innerHTML='<div class="calc-error">Os valores informados não formam uma configuração válida.</div>';
     return;
   }
 
@@ -323,7 +318,7 @@ function consultar(){
       +'<div class="number">'+qtd.toLocaleString("pt-BR")+'</div>'
       +'<div class="label">APOSTAS NECESSÁRIAS</div>';
   } else {
-    r.innerHTML='<div class="error">Configuração não encontrada</div>'
+    r.innerHTML='<div class="calc-error">Configuração não encontrada</div>'
       +'<div class="key">Essa combinação não está disponível na base atual.</div>';
   }
 }
@@ -355,16 +350,143 @@ function criarUrlSnapshot(concurso){
   return `${LOTERIANDO_SUPABASE_URL}/rest/v1/snapshot_grupos?${params.toString()}`;
 }
 
+const TOTAL_CONCURSOS = 3049;
+let concursoAtual = 3049;
+let ordenacaoRanking = {campo:'posicao_ranking', direcao:'asc'};
+
+function preencherHistorico(){
+  const select=document.getElementById('concursoRanking');
+  if(!select) return;
+  let opcoes='';
+  for(let n=TOTAL_CONCURSOS;n>=1;n--){
+    opcoes += `<option value="${n}">${n}</option>`;
+  }
+  select.innerHTML=opcoes;
+  select.value=String(concursoAtual);
+  atualizarBotoesHistorico();
+}
+
+function atualizarBotoesHistorico(){
+  const n=Number(concursoAtual);
+  const primeiro=document.getElementById('btnPrimeiro');
+  const anterior=document.getElementById('btnAnterior');
+  const proximo=document.getElementById('btnProximo');
+  const ultimo=document.getElementById('btnUltimo');
+  if(primeiro) primeiro.disabled=n<=1;
+  if(anterior) anterior.disabled=n<=1;
+  if(proximo) proximo.disabled=n>=TOTAL_CONCURSOS;
+  if(ultimo) ultimo.disabled=n>=TOTAL_CONCURSOS;
+}
+
+function mudarConcurso(valor){
+  const n=Math.max(1,Math.min(TOTAL_CONCURSOS,Number(valor)||3049));
+  concursoAtual=n;
+  const select=document.getElementById('concursoRanking');
+  if(select) select.value=String(n);
+  atualizarBotoesHistorico();
+  carregarRanking(n);
+}
+
+function navegarConcurso(delta){
+  mudarConcurso(concursoAtual + delta);
+}
+
+function irParaConcurso(numero){
+  mudarConcurso(numero);
+}
+
+function valorOrdenacao(item,campo){
+  const valor=item?.[campo];
+  if(valor===null || valor===undefined || valor==='') return Number.NEGATIVE_INFINITY;
+  const n=Number(valor);
+  return Number.isFinite(n) ? n : String(valor).toLowerCase();
+}
+
+function ordenarRanking(campo){
+  if(!window.rankingBase || !window.rankingBase.length) return;
+
+  if(ordenacaoRanking.campo===campo){
+    ordenacaoRanking.direcao = ordenacaoRanking.direcao==='asc' ? 'desc' : 'asc';
+  }else{
+    ordenacaoRanking={campo,direcao:'asc'};
+  }
+
+  renderizarRanking();
+}
+
+function atualizarIndicadoresOrdenacao(){
+  document.querySelectorAll('.ranking-table th.sortable').forEach(th=>{
+    const campo=th.dataset.sort;
+    const ind=th.querySelector('.sort-indicator');
+    const ativo=campo===ordenacaoRanking.campo;
+    th.classList.toggle('sort-active',ativo);
+    if(ind){
+      ind.textContent=ativo
+        ? (ordenacaoRanking.direcao==='asc' ? '▲' : '▼')
+        : '↕';
+    }
+  });
+}
+
+function renderizarRanking(){
+  const body=document.getElementById('rankingBody');
+  const base=window.rankingBase||[];
+  const dados=[...base];
+
+  dados.sort((a,b)=>{
+    const va=valorOrdenacao(a,ordenacaoRanking.campo);
+    const vb=valorOrdenacao(b,ordenacaoRanking.campo);
+    if(typeof va==='string' || typeof vb==='string'){
+      const c=String(va).localeCompare(String(vb),'pt-BR',{numeric:true});
+      return ordenacaoRanking.direcao==='asc' ? c : -c;
+    }
+    if(va===vb) return Number(a.posicao_ranking||0)-Number(b.posicao_ranking||0);
+    return ordenacaoRanking.direcao==='asc' ? va-vb : vb-va;
+  });
+
+  window.rankingAtual=dados;
+
+  body.innerHTML=dados.map((item,index)=>`
+    <tr data-ranking-index="${index}" onclick="selecionarGrupo(${index})">
+      <td>${item.posicao_ranking ?? '—'}</td>
+      <td>Grupo ${String(item.numero_grupo).padStart(2,'0')}</td>
+      <td>${item.total_quadras ?? '—'}</td>
+      <td>${item.total_quinas ?? '—'}</td>
+      <td>${item.total_senas ?? '—'}</td>
+      <td>${item.atraso_quadra ?? '—'}</td>
+      <td>${item.atraso_quina ?? '—'}</td>
+      <td>${item.atraso_sena ?? '—'}</td>
+      <td>${formatarNumero(item.indice_loteriando)}</td>
+    </tr>`).join('');
+
+  atualizarIndicadoresOrdenacao();
+}
+
 async function carregarRanking(concurso='3049'){
   const status=document.getElementById('rankingStatus');
   const body=document.getElementById('rankingBody');
+  concursoAtual=Number(concurso)||3049;
+
+  const select=document.getElementById('concursoRanking');
+  if(select) select.value=String(concursoAtual);
+  atualizarBotoesHistorico();
+
   status.className='ranking-status';
-  status.textContent=`Carregando fotografia do concurso ${concurso}...`;
+  status.textContent=`Carregando fotografia do concurso ${concursoAtual}...`;
   body.innerHTML='<tr><td colspan="9" class="ranking-loading">Carregando...</td></tr>';
 
   try{
-    const resposta=await fetch(criarUrlSnapshot(concurso),{method:'GET'});
-    const dados=await resposta.json();
+    let resposta;
+    try {
+      resposta=await fetch(criarUrlSnapshot(concursoAtual),{method:'GET',headers:{'apikey':LOTERIANDO_PUBLISHABLE_KEY,'Accept':'application/json'}});
+    } catch (e) {
+      console.warn('Falha no fetch com header; tentando URL com apikey...',e);
+      resposta=await fetch(criarUrlSnapshot(concursoAtual),{method:'GET',headers:{'Accept':'application/json'}});
+    }
+
+    const texto=await resposta.text();
+    let dados;
+    try { dados=JSON.parse(texto); } catch (_) { throw new Error(texto || `HTTP ${resposta.status}`); }
 
     if(!resposta.ok){
       throw new Error(dados?.message || `HTTP ${resposta.status}`);
@@ -375,34 +497,31 @@ async function carregarRanking(concurso='3049'){
     }
 
     if(dados.length===0){
+      window.rankingBase=[];
+      window.rankingAtual=[];
       body.innerHTML='<tr><td colspan="9" class="ranking-loading">Nenhuma fotografia encontrada para este concurso.</td></tr>';
       status.className='ranking-status error';
-      status.textContent=`Concurso ${concurso}: nenhuma fotografia disponível.`;
+      status.textContent=`Concurso ${concursoAtual}: nenhuma fotografia disponível.`;
+      atualizarIndicadoresOrdenacao();
       return;
     }
 
-    body.innerHTML=dados.map((item,index)=>`
-      <tr data-ranking-index="${index}" onclick="selecionarGrupo(${index})">
-        <td>${item.posicao_ranking ?? '—'}</td>
-        <td>Grupo ${String(item.numero_grupo).padStart(2,'0')}</td>
-        <td>${item.total_quadras ?? '—'}</td>
-        <td>${item.total_quinas ?? '—'}</td>
-        <td>${item.total_senas ?? '—'}</td>
-        <td>${item.atraso_quadra ?? '—'}</td>
-        <td>${item.atraso_quina ?? '—'}</td>
-        <td>${item.atraso_sena ?? '—'}</td>
-        <td>${formatarNumero(item.indice_loteriando)}</td>
-      </tr>`).join('');
+    window.rankingBase=dados;
+    ordenacaoRanking={campo:'posicao_ranking',direcao:'asc'};
+    renderizarRanking();
 
-    window.rankingAtual=dados;
     status.className='ranking-status ok';
-    status.textContent=`Concurso ${concurso} • ${dados.length} grupos carregados da fotografia.`;
+    status.textContent=`Concurso ${concursoAtual} • ${dados.length} grupos carregados da fotografia.`;
 
   }catch(erro){
     console.error('Erro ao carregar Ranking:',erro);
+    window.rankingBase=[];
+    window.rankingAtual=[];
     body.innerHTML='<tr><td colspan="9" class="ranking-loading">Não foi possível carregar o Ranking.</td></tr>';
     status.className='ranking-status error';
-    status.textContent=`Erro ao consultar a fotografia: ${erro.message}`;
+    status.textContent = (erro && erro.message === 'Failed to fetch')
+      ? 'Não foi possível acessar o Supabase. Verifique a conexão e se o projeto está ativo.'
+      : `Erro ao consultar a fotografia: ${erro.message}`;
   }
 }
 
@@ -446,7 +565,7 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape')fecharGrupoModal();
 });
 
-document.addEventListener('DOMContentLoaded',()=>{document.getElementById('appVersion').textContent='v13.13.4';carregarRanking('3049');});
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('appVersion').textContent='v13.13.5';preencherHistorico();carregarRanking('3049');});
 </script>
 
 <script>
