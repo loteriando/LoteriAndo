@@ -133,6 +133,28 @@ button{cursor:pointer;}
   .concurso-box{min-width:0;}
 }
 
+.janela-resultados{min-height:calc(100vh - 100px);padding:24px 18px}
+.history-tools{display:flex;align-items:end;gap:9px;flex-wrap:wrap;margin:10px 0 14px}
+.history-tools label{font-size:12px;color:#55718a;font-weight:700;width:100%}
+.history-tools input{height:42px;max-width:240px;border:1px solid #bcd8ee;border-radius:9px;padding:0 12px;color:#12304a}
+.history-tools button,.history-pagination button{height:42px;border:0;border-radius:9px;padding:0 15px;background:#0b5cab;color:#fff;font-weight:700}
+.history-tools .history-clear{background:#eaf3fb;color:#315c7d;border:1px solid #cfe2f3}
+.history-table{min-width:650px}
+.history-table td{text-align:center;padding:10px 8px;border-bottom:1px solid #edf3f8}
+.history-ball{display:inline-flex;width:34px;height:34px;border-radius:50%;align-items:center;justify-content:center;background:#0b5cab;color:#fff;font-weight:800;margin:2px}
+.history-pagination{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:16px;color:#55718a;font-weight:700}
+.history-pagination button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:700px){.janela-resultados{padding:18px 12px}.history-tools input{max-width:none;flex:1}}
+
+.history-analysis{margin-top:22px;padding:18px;border:1px solid #cfe2f3;border-radius:14px;background:#f8fbff}
+.history-analysis h3{margin:0 0 14px;color:#0b5cab}
+.history-summary{display:grid;grid-template-columns:repeat(4,minmax(80px,1fr));gap:9px;margin-bottom:16px}
+.history-summary div{background:#fff;border:1px solid #dceeff;border-radius:10px;padding:12px;text-align:center}
+.history-summary strong{display:block;font-size:23px;color:#0b5cab}
+.history-summary span{font-size:12px;color:#55718a}
+.history-analysis tr td{padding:9px;text-align:center;border-bottom:1px solid #e5eef6}
+.history-analyze-btn{border:0;border-radius:8px;background:#e8f3ff;color:#0b5cab;padding:8px 10px;font-weight:800;cursor:pointer}
+@media(max-width:600px){.history-summary{grid-template-columns:repeat(2,minmax(80px,1fr))}}
 </style>
 </head>
 <body>
@@ -150,6 +172,7 @@ button{cursor:pointer;}
   </div>
   <nav class="main-nav" aria-label="Navegação principal">
     <button type="button" class="nav-button active" onclick="abrirJanela('ranking',this)">🏆 RANKING</button>
+    <button type="button" class="nav-button" onclick="abrirJanela('resultados',this)">🎯 RESULTADOS</button>
     <button type="button" class="nav-button" onclick="abrirJanela('calculadora',this)">🧮 CALCULADORA</button>
     <button type="button" class="nav-button" onclick="abrirJanela('admin',this)">⚙ ADMINISTRAÇÃO</button>
   </nav>
@@ -170,12 +193,13 @@ button{cursor:pointer;}
           <button type="button" class="historico-btn" id="btnPrimeiro" title="Ir para o concurso 1" onclick="irParaConcurso(1)">⏮</button>
           <button type="button" class="historico-btn" id="btnAnterior" title="Concurso anterior" onclick="navegarConcurso(-1)">◀</button>
           <button type="button" class="historico-btn" id="btnProximo" title="Próximo concurso" onclick="navegarConcurso(1)">▶</button>
-          <button type="button" class="historico-btn" id="btnUltimo" title="Ir para o concurso 3049" onclick="irParaConcurso(3049)">⏭</button>
+          <button type="button" class="historico-btn" id="btnUltimo" title="Ir para o concurso 3075" onclick="irParaConcurso(3075)">⏭</button>
         </div>
       </div>
     </div>
 
     <div id="rankingStatus" class="ranking-status">Carregando fotografia do concurso 3049...</div>
+    <div id="resultadoConcurso" class="ranking-status" style="display:none;margin-top:12px"></div>
 
     <div class="ranking-table-wrap">
       <table class="ranking-table">
@@ -234,6 +258,39 @@ button{cursor:pointer;}
     <button type="button" class="modal-return" onclick="fecharGrupoModal()">← RETORNAR AO RANKING</button>
   </div>
 </div>
+
+<section id="janela-resultados" class="janela janela-resultados">
+  <div class="panel">
+    <h2 class="panel-title">Histórico de Resultados</h2>
+    <p class="panel-subtitle">Consulte os concursos cadastrados, suas datas e as seis dezenas sorteadas.</p>
+    <div class="history-tools">
+      <label for="filtroResultado">Localizar concurso</label>
+      <input id="filtroResultado" type="number" min="1" max="3075" placeholder="Digite o número do concurso">
+      <button type="button" onclick="filtrarResultados()">CONSULTAR</button>
+      <button type="button" class="history-clear" onclick="limparFiltroResultados()">LIMPAR</button>
+    </div>
+    <div id="historicoStatus" class="ranking-status">Clique em RESULTADOS para carregar o histórico.</div>
+    <div class="ranking-table-wrap">
+      <table class="ranking-table history-table">
+        <thead><tr><th>Concurso</th><th>Data do sorteio</th><th colspan="6">Dezenas sorteadas</th><th>Análise</th></tr></thead>
+        <tbody id="historicoResultadosBody"><tr><td colspan="9" class="ranking-loading">Aguardando consulta...</td></tr></tbody>
+      </table>
+    </div>
+    <div id="analiseGrupoConcurso" class="history-analysis" style="display:none">
+      <h3 id="analiseGrupoTitulo">Análise dos 84 grupos</h3>
+      <div id="analiseGrupoResumo" class="history-summary"></div>
+      <div class="ranking-table-wrap"><table class="ranking-table history-table">
+        <thead><tr><th>Grupo</th><th>Acertos</th><th>Classificação</th></tr></thead>
+        <tbody id="analiseGrupoBody"></tbody>
+      </table></div>
+    </div>
+    <div class="history-pagination">
+      <button type="button" id="histAnterior" onclick="paginaResultados(-1)" disabled>◀ Anterior</button>
+      <span id="histPagina">Página 1</span>
+      <button type="button" id="histProxima" onclick="paginaResultados(1)" disabled>Próxima ▶</button>
+    </div>
+  </div>
+</section>
 
 <section id="janela-calculadora" class="janela janela-calculadora">
 <div class="calc-wrap">
@@ -350,7 +407,7 @@ function criarUrlSnapshot(concurso){
   return `${LOTERIANDO_SUPABASE_URL}/rest/v1/snapshot_grupos?${params.toString()}`;
 }
 
-const TOTAL_CONCURSOS = 3049;
+const TOTAL_CONCURSOS = 3075;
 let concursoAtual = 3049;
 let ordenacaoRanking = {campo:'posicao_ranking', direcao:'asc'};
 
@@ -462,6 +519,36 @@ function renderizarRanking(){
   atualizarIndicadoresOrdenacao();
 }
 
+
+async function carregarResultadoConcurso(concurso){
+  const box=document.getElementById('resultadoConcurso');
+  if(!box) return;
+  box.style.display='none';
+  box.innerHTML='';
+  const params=new URLSearchParams({
+    numero:`eq.${concurso}`,
+    select:'numero,data_sorteio,dezena_1,dezena_2,dezena_3,dezena_4,dezena_5,dezena_6',
+    limit:'1',
+    apikey:LOTERIANDO_PUBLISHABLE_KEY
+  });
+  const url=`${LOTERIANDO_SUPABASE_URL}/rest/v1/concursos?${params.toString()}`;
+  const resposta=await fetch(url,{headers:{'apikey':LOTERIANDO_PUBLISHABLE_KEY,'Accept':'application/json'}});
+  const texto=await resposta.text();
+  let dados;
+  try{dados=JSON.parse(texto);}catch(_){throw new Error(texto||`HTTP ${resposta.status}`);}
+  if(!resposta.ok) throw new Error(dados?.message||`HTTP ${resposta.status}`);
+  if(!Array.isArray(dados)||dados.length===0) return;
+  const c=dados[0];
+  const dezenas=[c.dezena_1,c.dezena_2,c.dezena_3,c.dezena_4,c.dezena_5,c.dezena_6]
+    .map(n=>String(n).padStart(2,'0'));
+  const data=c.data_sorteio ? new Date(`${c.data_sorteio}T00:00:00`).toLocaleDateString('pt-BR') : 'Data não informada';
+  box.innerHTML=`<div style="font-weight:800;margin-bottom:8px">Resultado oficial cadastrado • Concurso ${c.numero} • ${data}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:9px;justify-content:center">
+      ${dezenas.map(n=>`<span style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:#0b5cab;color:#fff;font-weight:800;font-size:17px;box-shadow:0 2px 6px rgba(11,92,171,.2)">${n}</span>`).join('')}
+    </div>`;
+  box.style.display='block';
+}
+
 async function carregarRanking(concurso='3049'){
   const status=document.getElementById('rankingStatus');
   const body=document.getElementById('rankingBody');
@@ -499,13 +586,25 @@ async function carregarRanking(concurso='3049'){
     if(dados.length===0){
       window.rankingBase=[];
       window.rankingAtual=[];
-      body.innerHTML='<tr><td colspan="9" class="ranking-loading">Nenhuma fotografia encontrada para este concurso.</td></tr>';
-      status.className='ranking-status error';
-      status.textContent=`Concurso ${concursoAtual}: nenhuma fotografia disponível.`;
+      body.innerHTML='<tr><td colspan="9" class="ranking-loading">Ranking indisponível: ainda não existe fotografia para este concurso.</td></tr>';
+      status.className='ranking-status';
+      status.textContent=`Concurso ${concursoAtual}: fotografia do ranking ainda não disponível.`;
+      try{
+        await carregarResultadoConcurso(concursoAtual);
+      }catch(erroResultado){
+        console.error('Erro ao carregar resultado do concurso:',erroResultado);
+        const box=document.getElementById('resultadoConcurso');
+        if(box){
+          box.style.display='block';
+          box.textContent=`Não foi possível consultar as dezenas sorteadas: ${erroResultado.message}`;
+        }
+      }
       atualizarIndicadoresOrdenacao();
       return;
     }
 
+    const resultadoBox=document.getElementById('resultadoConcurso');
+    if(resultadoBox){resultadoBox.style.display='none';resultadoBox.innerHTML='';}
     window.rankingBase=dados;
     ordenacaoRanking={campo:'posicao_ranking',direcao:'asc'};
     renderizarRanking();
@@ -565,14 +664,150 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape')fecharGrupoModal();
 });
 
-document.addEventListener('DOMContentLoaded',()=>{document.getElementById('appVersion').textContent='v13.13.5';preencherHistorico();carregarRanking('3049');});
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('appVersion').textContent='v13.13.8';preencherHistorico();carregarRanking('3049');});
 </script>
 
 <script>
+
+let historicoResultados=[];
+let historicoPagina=1;
+const HISTORICO_POR_PAGINA=30;
+let historicoCarregado=false;
+
+async function carregarHistoricoResultados(){
+  const status=document.getElementById('historicoStatus');
+  const body=document.getElementById('historicoResultadosBody');
+  status.className='ranking-status';
+  status.textContent='Consultando concursos no Supabase...';
+  body.innerHTML='<tr><td colspan="9" class="ranking-loading">Carregando histórico...</td></tr>';
+  try{
+    const todos=[];
+    const tamanho=1000;
+    for(let inicio=0;;inicio+=tamanho){
+      const params=new URLSearchParams({
+        select:'numero,data_sorteio,dezena_1,dezena_2,dezena_3,dezena_4,dezena_5,dezena_6',
+        order:'numero.desc',
+        limit:String(tamanho),
+        offset:String(inicio),
+        apikey:LOTERIANDO_PUBLISHABLE_KEY
+      });
+      const resp=await fetch(`${LOTERIANDO_SUPABASE_URL}/rest/v1/concursos?${params}`,{
+        headers:{'apikey':LOTERIANDO_PUBLISHABLE_KEY,'Accept':'application/json'}
+      });
+      const raw=await resp.text();
+      let rows;try{rows=JSON.parse(raw)}catch(_){throw new Error(raw||`HTTP ${resp.status}`)}
+      if(!resp.ok)throw new Error(rows?.message||`HTTP ${resp.status}`);
+      if(!Array.isArray(rows))throw new Error('Resposta inválida do histórico.');
+      todos.push(...rows);
+      if(rows.length<tamanho)break;
+    }
+    historicoResultados=todos;
+    historicoCarregado=true;
+    historicoPagina=1;
+    renderizarPaginaResultados();
+    status.className='ranking-status ok';
+    status.textContent=`${todos.length} concursos carregados.`;
+  }catch(err){
+    status.className='ranking-status error';
+    status.textContent=`Erro ao consultar histórico: ${err.message}`;
+    body.innerHTML='<tr><td colspan="9" class="ranking-loading">Não foi possível carregar os resultados.</td></tr>';
+  }
+}
+function renderizarPaginaResultados(lista=null){
+  const body=document.getElementById('historicoResultadosBody');
+  const dados=lista||historicoResultados;
+  const totalPaginas=Math.max(1,Math.ceil(dados.length/HISTORICO_POR_PAGINA));
+  historicoPagina=Math.max(1,Math.min(totalPaginas,historicoPagina));
+  const inicio=(historicoPagina-1)*HISTORICO_POR_PAGINA;
+  const pagina=dados.slice(inicio,inicio+HISTORICO_POR_PAGINA);
+  body.innerHTML=pagina.length?pagina.map(c=>{
+    const data=c.data_sorteio?new Date(`${c.data_sorteio}T00:00:00`).toLocaleDateString('pt-BR'):'—';
+    const dezenas=[c.dezena_1,c.dezena_2,c.dezena_3,c.dezena_4,c.dezena_5,c.dezena_6]
+      .map(n=>`<span class="history-ball">${String(n).padStart(2,'0')}</span>`).join('');
+    return `<tr><td><strong>${c.numero}</strong></td><td>${data}</td><td colspan="6">${dezenas}</td><td><button class="history-analyze-btn" onclick="analisarGruposConcurso(${c.numero})">Analisar</button></td></tr>`;
+  }).join(''):'<tr><td colspan="9">Nenhum concurso encontrado.</td></tr>';
+  document.getElementById('histPagina').textContent=`Página ${historicoPagina} de ${totalPaginas}`;
+  document.getElementById('histAnterior').disabled=historicoPagina<=1;
+  document.getElementById('histProxima').disabled=historicoPagina>=totalPaginas;
+}
+function paginaResultados(delta){
+  historicoPagina+=delta;
+  const filtro=document.getElementById('filtroResultado').value.trim();
+  if(filtro){
+    const n=Number(filtro);
+    const idx=historicoResultados.findIndex(c=>Number(c.numero)===n);
+    if(idx>=0)historicoPagina=Math.floor(idx/HISTORICO_POR_PAGINA)+1;
+  }
+  renderizarPaginaResultados();
+}
+function filtrarResultados(){
+  const valor=document.getElementById('filtroResultado').value.trim();
+  if(!valor){historicoPagina=1;renderizarPaginaResultados();return;}
+  const n=Number(valor);
+  const encontrados=historicoResultados.filter(c=>Number(c.numero)===n);
+  const body=document.getElementById('historicoResultadosBody');
+  if(encontrados.length){
+    const c=encontrados[0],data=c.data_sorteio?new Date(`${c.data_sorteio}T00:00:00`).toLocaleDateString('pt-BR'):'—';
+    const ds=[c.dezena_1,c.dezena_2,c.dezena_3,c.dezena_4,c.dezena_5,c.dezena_6].map(x=>`<span class="history-ball">${String(x).padStart(2,'0')}</span>`).join('');
+    body.innerHTML=`<tr><td><strong>${c.numero}</strong></td><td>${data}</td><td colspan="6">${ds}</td><td><button class="history-analyze-btn" onclick="analisarGruposConcurso(${c.numero})">Analisar</button></td></tr>`;
+    document.getElementById('histPagina').textContent='1 resultado';
+    document.getElementById('histAnterior').disabled=true;document.getElementById('histProxima').disabled=true;
+  }else{
+    body.innerHTML='<tr><td colspan="9">Concurso não encontrado.</td></tr>';
+  }
+}
+
+async function analisarGruposConcurso(numero){
+  const box=document.getElementById('analiseGrupoConcurso');
+  const titulo=document.getElementById('analiseGrupoTitulo');
+  const resumo=document.getElementById('analiseGrupoResumo');
+  const body=document.getElementById('analiseGrupoBody');
+  box.style.display='block';
+  titulo.textContent=`Análise dos 84 grupos • Concurso ${numero}`;
+  resumo.innerHTML='Consultando resultados dos grupos...';
+  body.innerHTML='<tr><td colspan="3">Carregando...</td></tr>';
+  box.scrollIntoView({behavior:'smooth',block:'start'});
+  try{
+    const headers={'apikey':LOTERIANDO_PUBLISHABLE_KEY,'Accept':'application/json'};
+    const get=async(path)=>{
+      const r=await fetch(`${LOTERIANDO_SUPABASE_URL}/rest/v1/${path}`,{headers});
+      const raw=await r.text();let d;try{d=JSON.parse(raw)}catch(_){throw new Error(raw)}
+      if(!r.ok)throw new Error(d?.message||`HTTP ${r.status}`);
+      return d;
+    };
+    const concursos=await get(`concursos?numero=eq.${numero}&select=id&limit=1`);
+    if(!concursos.length)throw new Error('Concurso não encontrado.');
+    const cid=concursos[0].id;
+    const [rel,grupos]=await Promise.all([
+      get(`grupo_concurso?concurso_id=eq.${cid}&select=grupo_id,acertos&order=acertos.desc,grupo_id.asc`),
+      get('grupos?select=id,numero_grupo&order=numero_grupo.asc')
+    ]);
+    if(rel.length!==84)throw new Error(`Esperados 84 grupos; encontrados ${rel.length}.`);
+    const nomes=new Map(grupos.map(g=>[String(g.id),g.numero_grupo]));
+    const cont={3:0,4:0,5:0,6:0};
+    rel.forEach(r=>{if(cont[r.acertos]!==undefined)cont[r.acertos]++});
+    resumo.innerHTML=[3,4,5,6].map(n=>`<div><strong>${cont[n]}</strong><span>${n} acertos</span></div>`).join('');
+    body.innerHTML=rel.map(r=>{
+      const n=Number(r.acertos);
+      const classe=n>=6?'Sena':n===5?'Quina':n===4?'Quadra':n===3?'Terno':'Menos de 3';
+      return `<tr><td>Grupo ${nomes.get(String(r.grupo_id))??r.grupo_id}</td><td><strong>${n}</strong></td><td>${classe}</td></tr>`;
+    }).join('');
+  }catch(err){
+    resumo.textContent=`Não foi possível carregar a análise: ${err.message}`;
+    body.innerHTML='';
+  }
+}
+
+function limparFiltroResultados(){
+  document.getElementById('filtroResultado').value='';
+  historicoPagina=1;renderizarPaginaResultados();
+}
+
 function abrirJanela(nome, botao){
   document.querySelectorAll('.janela').forEach(janela=>janela.classList.remove('active'));
   const janela=document.getElementById('janela-'+nome);
   if(janela) janela.classList.add('active');
+  if(nome==='resultados'&&!historicoCarregado) carregarHistoricoResultados();
   document.querySelectorAll('.nav-button').forEach(btn=>btn.classList.remove('active'));
   if(botao) botao.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
