@@ -1,5 +1,8 @@
-const CACHE_NAME = 'loteriando-static-v13.13.4';
-
+/* LoteriAndo PWA — versão 13.14.0
+   Rede primeiro para que a versão publicada seja verificada ao abrir o app.
+   O cache é usado como alternativa quando o aparelho estiver offline.
+*/
+const CACHE_NAME = 'loteriando-v13.14.0';
 const APP_SHELL = [
   './',
   './index.html',
@@ -12,104 +15,67 @@ const APP_SHELL = [
 
 self.addEventListener('install', event => {
   self.skipWaiting();
-
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(APP_SHELL);
-    })
+    caches.open(CACHE_NAME).then(cache =>
+      Promise.allSettled(APP_SHELL.map(async file => {
+        try {
+          const response = await fetch(file, { cache: 'reload' });
+          if (response && response.ok) await cache.put(file, response);
+        } catch (_) {
+          // Um arquivo opcional ausente não deve impedir a instalação do SW.
+        }
+      }))
+    )
   );
 });
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.filter(key => key.startsWith('loteriando-') && key !== CACHE_NAME)
           .map(key => caches.delete(key))
-      );
-    }).then(() => {
-      return self.clients.claim();
-    })
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', event => {
-
   const request = event.request;
+  if (request.method !== 'GET') return;
+
   const url = new URL(request.url);
 
-  /*
-   * =========================================================
-   * SUPABASE
-   * =========================================================
-   *
-   * NÃO INTERCEPTAR requisições para o Supabase.
-   *
-   * Isso é importante para que:
-   *
-   * fetch(...)
-   *
-   * seja executado diretamente pelo navegador.
-   */
-  if (
-    url.hostname === 'supabase.co' ||
-    url.hostname.endsWith('.supabase.co')
-  ) {
-    return;
-  }
+  // Não interceptar chamadas ao Supabase.
+  if (url.hostname === 'supabase.co' || url.hostname.endsWith('.supabase.co')) return;
 
-  /*
-   * Somente requisições GET serão tratadas pelo cache.
-   */
-  if (request.method !== 'GET') {
-    return;
-  }
+  // Tratar somente recursos do próprio aplicativo.
+  if (url.origin !== self.location.origin) return;
 
-  /*
-   * =========================================================
-   * ARQUIVOS DO PRÓPRIO LOTERIANDO
-   * =========================================================
-   *
-   * Tenta primeiro pela rede.
-   * Se estiver offline, utiliza o cache.
-   */
-  if (url.origin === self.location.origin) {
-
+  // HTML sempre pela rede primeiro; cache apenas se estiver offline.
+  if (request.mode === 'navigate' || url.pathname.endsWith('/index.html') || url.pathname.endsWith('.html')) {
     event.respondWith(
-
-      fetch(request)
-
-        .then(response => {
-
-          if (response && response.ok) {
-
-            const copia = response.clone();
-
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(request, copia);
-            });
-
-          }
-
-          return response;
-        })
-
-        .catch(() => {
-
-          return caches.match(request).then(cached => {
-
-            if (cached) {
-              return cached;
-            }
-
-            return caches.match('./index.html');
-
-          });
-
-        })
-
+      fetch(request, { cache: 'no-store' }).then(response => {
+        if (response && response.ok) {
+          const copia = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copia));
+        }
+        return response;
+      }).catch(() =>
+        caches.match(request).then(cached => cached || caches.match('./index.html'))
+      )
     );
+    return;
   }
 
+  // Recursos estáticos: rede primeiro, com fallback offline.
+  event.respondWith(
+    fetch(request).then(response => {
+      if (response && response.ok) {
+        const copia = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(request, copia));
+      }
+      return response;
+    }).catch(() => caches.match(request))
+  );
 });

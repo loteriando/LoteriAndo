@@ -155,6 +155,42 @@ button{cursor:pointer;}
 .history-analysis tr td{padding:9px;text-align:center;border-bottom:1px solid #e5eef6}
 .history-analyze-btn{border:0;border-radius:8px;background:#e8f3ff;color:#0b5cab;padding:8px 10px;font-weight:800;cursor:pointer}
 @media(max-width:600px){.history-summary{grid-template-columns:repeat(2,minmax(80px,1fr))}}
+/* ===== ADMINISTRACAO ===== */
+.admin-panel{max-width:900px;}
+.admin-card{background:#fbfdff;border:1px solid #dceeff;border-radius:16px;padding:22px;margin:18px 0;}
+.admin-card h3{margin:0 0 8px;color:#174f80;font-size:18px;}
+.admin-muted{color:#607b91;font-size:13px;line-height:1.5;margin:4px 0 16px;}
+.admin-form{display:flex;flex-direction:column;gap:9px;max-width:620px;}
+.admin-form label{font-size:13px;font-weight:700;color:#315c7d;margin-top:5px;}
+.admin-form input{width:100%;height:44px;border:1px solid #bcd8ee;border-radius:10px;background:#fff;padding:0 12px;color:#12304a;outline:none;}
+.admin-form input:focus{border-color:#1685d8;box-shadow:0 0 0 3px rgba(22,133,216,.12);}
+.admin-primary,.admin-secondary{height:44px;border:0;border-radius:10px;padding:0 18px;font-weight:700;}
+.admin-primary{background:#0b65ad;color:#fff;margin-top:10px;}
+.admin-primary:disabled{opacity:.6;cursor:wait;}
+.admin-secondary{background:#eaf4ff;color:#15598f;border:1px solid #cfe2f3;}
+.admin-status{min-height:22px;margin-top:12px;font-size:13px;color:#526d82;line-height:1.5;}
+.admin-status.error{color:#b42318;font-weight:700;}
+.admin-status.ok{color:#18794e;font-weight:700;}
+.admin-fields-two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.admin-number-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;}
+.admin-number-grid input{text-align:center;font-size:20px;font-weight:700;}
+.admin-notice{background:#fff8e8;border:1px solid #f0dfb5;color:#76591b;border-radius:10px;padding:12px;font-size:12px;line-height:1.5;margin-top:8px;}
+.admin-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0 4px;}
+.admin-table-wrap{overflow-x:auto;margin-top:12px;max-height:440px;overflow-y:auto;border:1px solid #dce5ec;border-radius:10px;background:#fff;}
+.admin-table{width:100%;border-collapse:collapse;font-size:13px;}
+.admin-table th,.admin-table td{padding:9px 12px;text-align:left;border-bottom:1px solid #e8eef2;}
+.admin-table th{position:sticky;top:0;background:#f3f7fa;color:#31485b;z-index:1;}
+.admin-table td:last-child{font-weight:700;}
+.admin-hit-4{color:#198754;font-weight:800;}.admin-hit-5{color:#0d6efd;font-weight:800;}.admin-hit-6{color:#dc3545;font-weight:800;}
+.admin-preview-row{cursor:pointer;transition:background .15s}.admin-preview-row:hover{background:#edf6ff}.admin-preview-row:focus{outline:2px solid #0b5cab;outline-offset:-2px}
+.admin-group-modal{display:none;position:fixed;inset:0;z-index:1100;background:rgba(6,35,60,.58);padding:18px;align-items:center;justify-content:center}.admin-group-modal.active{display:flex}.admin-group-modal-box{width:min(560px,100%);max-height:calc(100vh - 36px);overflow:auto;background:#fff;border-radius:18px;padding:20px;border:1px solid #cfe2f3;box-shadow:0 18px 60px rgba(0,0,0,.28)}.admin-group-modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #e4eef6;padding-bottom:12px;margin-bottom:14px}.admin-group-modal-title{margin:0;color:#0b5cab;font-size:21px}.admin-group-modal-close{border:1px solid #cfe2f3;background:#f4f9ff;color:#174f80;border-radius:9px;padding:8px 12px;font-weight:700}.admin-group-modal-note{font-size:13px;color:#55718a;line-height:1.5;margin:0 0 14px}.admin-group-balls{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px}.admin-number-ball{aspect-ratio:1/1;border:1px solid #d5e2ec;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#f8fbfd;color:#38566d;font-size:15px;font-weight:700}.admin-number-ball.is-hit{border:3px solid #0b5cab;background:#eaf4ff;color:#0b5cab}.admin-number-ball.is-hit.hit-4{border-color:#198754;background:#e8f5ee;color:#146c43}.admin-number-ball.is-hit.hit-5{border-color:#0d6efd;background:#eaf2ff;color:#0a58ca}.admin-number-ball.is-hit.hit-6{border-color:#dc3545;background:#fff0f1;color:#b02a37}.admin-number-ball.is-hit.hit-low{border:3px solid #212529;background:#fff;color:#212529}.admin-group-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;font-size:12px;color:#526d82}.admin-group-legend span{display:flex;align-items:center;gap:6px}.admin-legend-dot{width:11px;height:11px;border-radius:50%;display:inline-block}.admin-legend-quadra{background:#198754}.admin-legend-quina{background:#0d6efd}.admin-legend-sena{background:#dc3545}.admin-group-modal-return{width:100%;height:42px;margin-top:18px;border:0;border-radius:10px;background:#0b5cab;color:#fff;font-weight:800;cursor:pointer}
+.admin-result{margin-top:14px;border:1px solid #b9e2ca;background:#f2fbf5;color:#175b36;border-radius:12px;padding:14px;line-height:1.6;font-size:14px;}
+@media(max-width:600px){.admin-fields-two{grid-template-columns:1fr}.admin-number-grid{gap:6px}.admin-number-grid input{padding:0 4px;font-size:17px}.admin-card{padding:16px}}
+
+
+.admin-confirm-modal{display:none;position:fixed;inset:0;z-index:1300;background:rgba(6,35,60,.62);padding:18px;align-items:center;justify-content:center}.admin-confirm-modal.active{display:flex}.admin-confirm-box{width:min(520px,100%);max-height:calc(100vh - 36px);overflow:auto;margin:auto;background:#fff;border:1px solid #cfe2f3;border-radius:18px;padding:22px;box-shadow:0 20px 65px rgba(0,0,0,.32);text-align:left}.admin-confirm-title{margin:0 0 14px;color:#0b5cab;font-size:21px}.admin-confirm-text{white-space:pre-line;color:#31485b;font-size:14px;line-height:1.65}.admin-confirm-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}.admin-confirm-actions button{min-width:112px;padding:11px 16px;border-radius:10px;font-weight:800;cursor:pointer}.admin-confirm-cancel{border:1px solid #cfe2f3;background:#f4f9ff;color:#174f80}.admin-confirm-ok{border:0;background:#0b5cab;color:#fff}
+
+
 </style>
 </head>
 <body>
@@ -166,7 +202,7 @@ button{cursor:pointer;}
       <img src="loteriando-icon.png" alt="LoteriAndo">
       <div>
         <div class="top-brand-title">LoteriAndo</div>
-        <div class="top-brand-subtitle">Análise dos 84 grupos</div><div id="appVersion" class="app-version">v13.13.5</div>
+        <div class="top-brand-subtitle">Análise dos 84 grupos</div><div id="appVersion" class="app-version">v13.14.0</div>
       </div>
     </div>
   </div>
@@ -334,11 +370,58 @@ button{cursor:pointer;}
 </section>
 
 <section id="janela-admin" class="janela janela-admin">
-  <div class="panel">
+  <div class="panel admin-panel">
     <h2 class="panel-title">Administração</h2>
-    <p class="panel-subtitle">Controle dos sorteios e das fotografias do LoteriAndo</p>
-    <div class="placeholder">
-      <div><strong>ÁREA ADMINISTRATIVA</strong><br><br>Inclusão, exclusão e gerenciamento dos sorteios.</div>
+    <p class="panel-subtitle">Cadastro e processamento dos concursos do LoteriAndo</p>
+
+    <div id="adminLoginBox" class="admin-card">
+      <h3>Acesso administrativo</h3>
+      <p class="admin-muted">Entre com o usuário administrador cadastrado no Supabase.</p>
+      <form id="adminLoginForm" class="admin-form">
+        <label for="adminEmail">E-mail</label>
+        <input id="adminEmail" type="email" autocomplete="username" required value="admin@loteriando.local" placeholder="admin@exemplo.com">
+        <label for="adminPassword">Senha</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" required placeholder="Sua senha">
+        <button type="submit" class="admin-primary" id="adminLoginButton">Entrar</button>
+      </form>
+      <div id="adminLoginStatus" class="admin-status" role="status" aria-live="polite"></div>
+    </div>
+
+    <div id="adminWorkspace" hidden>
+      <div class="admin-toolbar">
+        <div><strong id="adminIdentity">Administrador autenticado</strong><div class="admin-muted">Acesso autorizado</div></div>
+        <button type="button" class="admin-secondary" onclick="adminSair()">Sair</button>
+      </div>
+      <div class="admin-card">
+        <h3>Novo concurso</h3>
+        <p class="admin-muted">Informe o número do concurso e as seis dezenas. A data de registro será preenchida automaticamente pelo sistema. Os 84 grupos serão calculados e as quadras, quinas e senas serão registradas.</p>
+        <form id="adminContestForm" class="admin-form">
+          <div>
+            <label for="adminContestNumber">Número do concurso</label>
+            <input id="adminContestNumber" type="number" min="1" step="1" required>
+            <small class="admin-muted">Data de controle: preenchimento automático.</small>
+          </div>
+          <label>Dezenas sorteadas</label>
+          <div class="admin-number-grid">
+            <input class="admin-dozen" type="number" min="1" max="60" step="1" required aria-label="Dezena 1" placeholder="01">
+            <input class="admin-dozen" type="number" min="1" max="60" step="1" required aria-label="Dezena 2" placeholder="02">
+            <input class="admin-dozen" type="number" min="1" max="60" step="1" required aria-label="Dezena 3" placeholder="03">
+            <input class="admin-dozen" type="number" min="1" max="60" step="1" required aria-label="Dezena 4" placeholder="04">
+            <input class="admin-dozen" type="number" min="1" max="60" step="1" required aria-label="Dezena 5" placeholder="05">
+            <input class="admin-dozen" type="number" min="1" max="60" step="1" required aria-label="Dezena 6" placeholder="06">
+          </div>
+          <div class="admin-notice">Primeiro, faça uma prévia dos 84 grupos. Essa consulta é somente de leitura e não grava nenhum dado. O cadastro definitivo só ocorre ao clicar em “Processar concurso”.</div>
+          <button type="button" class="admin-secondary" id="adminPreviewButton">Consultar prévia dos 84 grupos</button>
+          <button type="submit" class="admin-primary" id="adminProcessButton">Processar concurso</button>
+        </form>
+        <div id="adminPreviewStatus" class="admin-status" role="status" aria-live="polite"></div>
+        <div id="adminPreviewResult" class="admin-result" hidden>
+          <div id="adminPreviewSummary"></div>
+          <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Grupo</th><th>Acertos</th><th>Resultado</th></tr></thead><tbody id="adminPreviewRows"></tbody></table></div>
+        </div>
+        <div id="adminProcessStatus" class="admin-status" role="status" aria-live="polite"></div>
+        <div id="adminProcessResult" class="admin-result" hidden></div>
+      </div>
     </div>
   </div>
 </section>
@@ -664,7 +747,7 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape')fecharGrupoModal();
 });
 
-document.addEventListener('DOMContentLoaded',()=>{document.getElementById('appVersion').textContent='v13.13.8';preencherHistorico();carregarRanking('3049');});
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('appVersion').textContent='v13.14.0';preencherHistorico();carregarRanking('3049');});
 </script>
 
 <script>
@@ -814,6 +897,300 @@ function abrirJanela(nome, botao){
 }
 </script>
 
-<script>if ("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js"));</script>
+
+<div id="adminConfirmModal" class="admin-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="adminConfirmTitle" onclick="if(event.target===this)adminFecharConfirmacao(false)">
+  <div class="admin-confirm-box">
+    <h3 id="adminConfirmTitle" class="admin-confirm-title">Confirmar processamento</h3>
+    <div id="adminConfirmText" class="admin-confirm-text"></div>
+    <div class="admin-confirm-actions"><button type="button" class="admin-confirm-cancel" onclick="adminFecharConfirmacao(false)">Cancelar</button><button type="button" class="admin-confirm-ok" onclick="adminFecharConfirmacao(true)">Confirmar</button></div>
+  </div>
+</div>
+
+<div id="adminGroupModal" class="admin-group-modal" role="dialog" aria-modal="true" aria-labelledby="adminGroupModalTitle" onclick="if(event.target===this)adminFecharGrupoModal()">
+  <div class="admin-group-modal-box">
+    <div class="admin-group-modal-head"><h3 id="adminGroupModalTitle" class="admin-group-modal-title">Grupo</h3><button type="button" class="admin-group-modal-close" onclick="adminFecharGrupoModal()">Fechar ✕</button></div>
+    <p id="adminGroupModalNote" class="admin-group-modal-note"></p>
+    <div id="adminGroupBalls" class="admin-group-balls"></div>
+    <div class="admin-group-legend"><span><i class="admin-legend-dot admin-legend-quadra"></i> Quadra</span><span><i class="admin-legend-dot admin-legend-quina"></i> Quina</span><span><i class="admin-legend-dot admin-legend-sena"></i> Sena</span><span><i class="admin-legend-dot" style="background:#212529"></i> 0 a 3 acertos</span></div>
+    <button type="button" class="admin-group-modal-return" onclick="adminFecharGrupoModal()">VOLTAR À PRÉVIA</button>
+  </div>
+</div>
+
+
+<script>
+/* ===== ADMINISTRACAO / SUPABASE AUTH + RPC ===== */
+const ADMIN_API_URL = LOTERIANDO_SUPABASE_URL;
+const ADMIN_PUBLIC_KEY = LOTERIANDO_PUBLISHABLE_KEY;
+let adminAccessToken = null;
+let adminEmailAtual = null;
+
+function adminMensagem(id, mensagem, tipo=''){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.textContent=mensagem;
+  el.className='admin-status'+(tipo?' '+tipo:'');
+}
+
+async function adminFetch(path, options={}){
+  const headers={
+    'apikey':ADMIN_PUBLIC_KEY,
+    'Accept':'application/json',
+    ...(options.headers||{})
+  };
+  if(adminAccessToken) headers['Authorization']='Bearer '+adminAccessToken;
+  if(options.body && !headers['Content-Type']) headers['Content-Type']='application/json';
+  const response=await fetch(ADMIN_API_URL+path,{...options,headers});
+  const raw=await response.text();
+  let data=null;
+  try{data=raw?JSON.parse(raw):null;}catch(_){data=raw;}
+  if(!response.ok){
+    const msg=(data && (data.msg||data.message||data.error_description||data.error)) || `Falha HTTP ${response.status}`;
+    throw new Error(msg);
+  }
+  return data;
+}
+
+async function adminEntrar(event){
+  event.preventDefault();
+  const btn=document.getElementById('adminLoginButton');
+  btn.disabled=true;
+  adminMensagem('adminLoginStatus','Autenticando...');
+  const email=document.getElementById('adminEmail').value.trim();
+  const password=document.getElementById('adminPassword').value;
+  try{
+    const auth=await adminFetch('/auth/v1/token?grant_type=password',{
+      method:'POST',body:JSON.stringify({email,password})
+    });
+    if(!auth || !auth.access_token) throw new Error('O serviço de autenticação não retornou uma sessão válida.');
+    adminAccessToken=auth.access_token;
+    adminEmailAtual=auth.user?.email||email;
+    const rows=await adminFetch('/rest/v1/administradores?select=usuario_id,ativo&limit=1');
+    if(!Array.isArray(rows)||rows.length!==1||rows[0].ativo!==true){
+      adminAccessToken=null; adminEmailAtual=null;
+      throw new Error('Usuário autenticado, mas sem autorização administrativa ativa.');
+    }
+    document.getElementById('adminLoginBox').hidden=true;
+    document.getElementById('adminWorkspace').hidden=false;
+    document.getElementById('adminIdentity').textContent=adminEmailAtual;
+    adminMensagem('adminLoginStatus','');
+    document.getElementById('adminPassword').value='';
+    adminPrepararNumero();
+  }catch(err){
+    adminAccessToken=null; adminEmailAtual=null;
+    adminMensagem('adminLoginStatus',err.message||'Não foi possível entrar.','error');
+  }finally{btn.disabled=false;}
+}
+
+async function adminPrepararNumero(){
+  const campo=document.getElementById('adminContestNumber');
+  if(!campo) return;
+  try{
+    const rows=await adminFetch('/rest/v1/concursos?select=numero&order=numero.desc&limit=1');
+    if(!Array.isArray(rows)||rows.length!==1||!Number.isInteger(Number(rows[0].numero))){
+      throw new Error('Não foi possível identificar o último concurso cadastrado.');
+    }
+    campo.value=String(Number(rows[0].numero)+1);
+    adminMensagem('adminPreviewStatus',`Próximo concurso identificado: ${campo.value}.`,'ok');
+  }catch(err){
+    campo.value='';
+    adminMensagem('adminPreviewStatus',`Não foi possível identificar automaticamente o próximo concurso. ${err.message||''}`,'error');
+  }
+}
+
+function adminSair(){
+  adminAccessToken=null; adminEmailAtual=null;
+  document.getElementById('adminWorkspace').hidden=true;
+  document.getElementById('adminLoginBox').hidden=false;
+  document.getElementById('adminContestForm').reset();
+  document.getElementById('adminProcessResult').hidden=true;
+  document.getElementById('adminPreviewResult').hidden=true;
+  window.adminPreviewChave = null;
+  adminMensagem('adminProcessStatus','');
+  adminMensagem('adminLoginStatus','Sessão encerrada.');
+}
+
+async function adminConsultarPrevia(){
+  if(!adminAccessToken){adminMensagem('adminPreviewStatus','Faça login novamente.','error');return;}
+  const btn=document.getElementById('adminPreviewButton');
+  const dezenas=Array.from(document.querySelectorAll('.admin-dozen')).map(x=>Number(x.value));
+  const box=document.getElementById('adminPreviewResult');
+  box.hidden=true;
+  if(dezenas.length!==6||dezenas.some(n=>!Number.isInteger(n)||n<1||n>60)||new Set(dezenas).size!==6){
+    adminMensagem('adminPreviewStatus','Informe seis dezenas diferentes, de 01 a 60, para consultar a prévia.','error');return;
+  }
+  btn.disabled=true;
+  adminMensagem('adminPreviewStatus','Consultando os 84 grupos no Supabase...');
+  try{
+    const grupos = await adminFetch('/rest/v1/grupos?select=id,numero_grupo&order=numero_grupo.asc');
+    // O PostgREST limita a resposta por página. Buscar em blocos evita
+    // perder registros quando a tabela ultrapassa o limite padrão de 1.000.
+    const dezenasGrupos = [];
+    const tamanhoPagina = 1000;
+    for (let inicio = 0; ; inicio += tamanhoPagina) {
+      const pagina = await adminFetch(
+        '/rest/v1/grupo_dezenas?select=grupo_id,dezena&order=grupo_id.asc,dezena.asc',
+        { headers: { 'Range-Unit': 'items', 'Range': `${inicio}-${inicio + tamanhoPagina - 1}` } }
+      );
+      if (!Array.isArray(pagina)) throw new Error('Resposta inválida ao consultar as dezenas dos grupos.');
+      dezenasGrupos.push(...pagina);
+      if (pagina.length < tamanhoPagina) break;
+    }
+    if(!Array.isArray(grupos)||grupos.length!==84) throw new Error(`Esperados 84 grupos; encontrados ${Array.isArray(grupos)?grupos.length:0}.`);
+    if(!Array.isArray(dezenasGrupos)||dezenasGrupos.length!==3024) throw new Error(`Esperadas 3.024 dezenas de grupos; encontradas ${Array.isArray(dezenasGrupos)?dezenasGrupos.length:0}.`);
+    const sorteadas=new Set(dezenas);
+    const porGrupo=new Map();
+    for(const item of dezenasGrupos){
+      if(!porGrupo.has(item.grupo_id))porGrupo.set(item.grupo_id,new Set());
+      porGrupo.get(item.grupo_id).add(Number(item.dezena));
+    }
+    window.adminPreviewGrupos = new Map();
+    const linhas=grupos.map(g=>{
+      const conjunto=porGrupo.get(g.id);
+      if(!conjunto||conjunto.size!==36)throw new Error(`Grupo ${g.numero_grupo}: conjunto de dezenas ausente ou incompleto.`);
+      let acertos=0;for(const n of sorteadas)if(conjunto.has(n))acertos++;
+      window.adminPreviewGrupos.set(Number(g.numero_grupo),{dezenas:Array.from(conjunto).sort((a,b)=>a-b),acertos});
+      return {numero:Number(g.numero_grupo),acertos};
+    });
+    linhas.sort((a,b)=>a.numero-b.numero);
+    const contagem={0:0,1:0,2:0,3:0,4:0,5:0,6:0};
+    for(const l of linhas)contagem[l.acertos]++;
+    const tbody=document.getElementById('adminPreviewRows');
+    tbody.replaceChildren();
+    for(const l of linhas){
+      const tr=document.createElement('tr');
+      tr.className='admin-preview-row';tr.tabIndex=0;tr.setAttribute('role','button');
+      tr.setAttribute('aria-label',`Abrir dezenas do Grupo ${String(l.numero).padStart(2,'0')}`);
+      tr.addEventListener('click',()=>adminAbrirGrupoModal(l.numero));
+      tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();adminAbrirGrupoModal(l.numero);}});
+      const tdGrupo=document.createElement('td');tdGrupo.textContent=String(l.numero).padStart(2,'0');
+      const tdAcertos=document.createElement('td');tdAcertos.textContent=String(l.acertos);
+      const tdResultado=document.createElement('td');
+      tdResultado.textContent=l.acertos===6?'SENA':l.acertos===5?'QUINA':l.acertos===4?'QUADRA':'—';
+      if(l.acertos>=4)tdResultado.className=`admin-hit-${l.acertos}`;
+      tr.append(tdGrupo,tdAcertos,tdResultado);tbody.appendChild(tr);
+    }
+    document.getElementById('adminPreviewSummary').textContent=`Prévia calculada: ${linhas.length} grupos | ${contagem[4]} quadras | ${contagem[5]} quinas | ${contagem[6]} senas. Dezenas: ${dezenas.map(n=>String(n).padStart(2,'0')).join(' – ')}.`;
+    window.adminPreviewChave = `${document.getElementById('adminContestNumber').value}|${[...dezenas].sort((a,b)=>a-b).join(',')}`;
+    box.hidden=false;
+    adminMensagem('adminPreviewStatus','Prévia concluída. Nenhum dado foi gravado.','ok');
+  }catch(err){
+    adminMensagem('adminPreviewStatus',err.message||'Não foi possível consultar os grupos.','error');
+  }finally{btn.disabled=false;}
+}
+
+function adminAbrirGrupoModal(numero){
+  const grupo=window.adminPreviewGrupos?.get(Number(numero));
+  if(!grupo)return;
+  const sorteadas=new Set(Array.from(document.querySelectorAll('.admin-dozen')).map(x=>Number(x.value)));
+  const hits=grupo.dezenas.filter(n=>sorteadas.has(n));
+  const classe=grupo.acertos>=4?`hit-${grupo.acertos}`:'hit-low';
+  document.getElementById('adminGroupModalTitle').textContent=`Grupo ${String(numero).padStart(2,'0')} — ${grupo.acertos} acerto(s)`;
+  document.getElementById('adminGroupModalNote').textContent=`O grupo possui 36 dezenas. ${hits.length?`As dezenas sorteadas que pertencem a este grupo estão circuladas (${hits.map(n=>String(n).padStart(2,'0')).join(', ')}).`:'Nenhuma das dezenas sorteadas pertence a este grupo.'}`;
+  const area=document.getElementById('adminGroupBalls');area.replaceChildren();
+  grupo.dezenas.forEach(n=>{
+    const bola=document.createElement('div');bola.className='admin-number-ball'+(sorteadas.has(n)?` is-hit ${classe}`:'');
+    bola.textContent=String(n).padStart(2,'0');area.appendChild(bola);
+  });
+  document.getElementById('adminGroupModal').classList.add('active');document.body.style.overflow='hidden';
+}
+function adminFecharGrupoModal(){document.getElementById('adminGroupModal').classList.remove('active');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('adminConfirmModal')?.classList.contains('active'))adminFecharConfirmacao(false);else adminFecharGrupoModal();}});
+
+
+let adminConfirmacaoResolver=null;
+function adminConfirmarProcessamento(mensagem){
+  return new Promise(resolve=>{
+    adminConfirmacaoResolver=resolve;
+    document.getElementById('adminConfirmText').textContent=mensagem;
+    document.getElementById('adminConfirmModal').classList.add('active');
+    document.body.style.overflow='hidden';
+    document.querySelector('#adminConfirmModal .admin-confirm-cancel').focus();
+  });
+}
+function adminFecharConfirmacao(confirmado){
+  document.getElementById('adminConfirmModal').classList.remove('active');
+  document.body.style.overflow='';
+  if(adminConfirmacaoResolver){const resolver=adminConfirmacaoResolver;adminConfirmacaoResolver=null;resolver(!!confirmado);}
+}
+
+async function adminProcessarConcurso(event){
+  event.preventDefault();
+  if(!adminAccessToken){adminMensagem('adminProcessStatus','Faça login novamente.','error');return;}
+  const btn=document.getElementById('adminProcessButton');
+  const numero=Number(document.getElementById('adminContestNumber').value);
+  const agora=new Date();
+  const data=[agora.getFullYear(),String(agora.getMonth()+1).padStart(2,'0'),String(agora.getDate()).padStart(2,'0')].join('-');
+  const dezenas=Array.from(document.querySelectorAll('.admin-dozen')).map(x=>Number(x.value));
+  const resultado=document.getElementById('adminProcessResult');
+  resultado.hidden=true;
+  if(!Number.isInteger(numero)||numero<1){adminMensagem('adminProcessStatus','Número do concurso inválido.','error');return;}
+  if(dezenas.length!==6||dezenas.some(n=>!Number.isInteger(n)||n<1||n>60)||new Set(dezenas).size!==6){
+    adminMensagem('adminProcessStatus','Informe seis dezenas diferentes, de 01 a 60.','error');return;
+  }
+  const chaveAtual = `${document.getElementById('adminContestNumber').value}|${[...dezenas].sort((a,b)=>a-b).join(',')}`;
+  if(window.adminPreviewChave !== chaveAtual){
+    adminMensagem('adminProcessStatus','Faça uma nova prévia para este número de concurso e estas seis dezenas antes de processar.','error');
+    return;
+  }
+  const confirmar = await adminConfirmarProcessamento(`Concurso: ${numero}\nDezenas: ${dezenas.map(n=>String(n).padStart(2,'0')).join(' – ')}\n\nSerão gravados o concurso, os resultados dos 84 grupos, os eventos de quadra/quina/sena e a atualização do último concurso.\n\nEsta operação não gera snapshot e não pode ser desfeita pela tela. Deseja continuar?`);
+  if(!confirmar) return;
+  btn.disabled=true;
+  adminMensagem('adminProcessStatus','Enviando para validação e processamento...');
+  try{
+    const retorno=await adminFetch('/rest/v1/rpc/processar_novo_concurso',{
+      method:'POST',body:JSON.stringify({p_numero:numero,p_data:data,p_dezenas:dezenas})
+    });
+    resultado.textContent=`Concurso ${retorno.concurso} processado. ${retorno.grupos_inseridos} grupos registrados e ${retorno.eventos_inseridos} eventos (quadras, quinas e senas). O ranking fotográfico ainda não foi gerado.`;
+    resultado.hidden=false;
+    adminMensagem('adminProcessStatus','Processamento concluído.','ok');
+    document.getElementById('adminContestForm').reset();
+    document.getElementById('adminContestNumber').value=numero+1;
+    document.getElementById('adminPreviewResult').hidden=true;
+    window.adminPreviewChave = null;
+  }catch(err){
+    adminMensagem('adminProcessStatus',err.message||'Erro ao processar concurso. Nenhum cadastro foi confirmado.','error');
+  }finally{btn.disabled=false;}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('adminLoginForm')?.addEventListener('submit',adminEntrar);
+  document.getElementById('adminContestForm')?.addEventListener('submit',adminProcessarConcurso);
+  document.getElementById('adminPreviewButton')?.addEventListener('click',adminConsultarPrevia);
+});
+
+</script>
+
+<script>
+/* ===== LOTERIANDO PWA — ATUALIZAÇÃO AUTOMÁTICA ===== */
+if ('serviceWorker' in navigator) {
+  let recarregandoPorAtualizacao = false;
+  const jaPossuiaControlador = !!navigator.serviceWorker.controller;
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (jaPossuiaControlador && !recarregandoPorAtualizacao) {
+      recarregandoPorAtualizacao = true;
+      window.location.reload();
+    }
+  });
+
+  window.addEventListener('load', async () => {
+    try {
+      const registro = await navigator.serviceWorker.register('./sw.js', {
+        updateViaCache: 'none'
+      });
+      await registro.update();
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          registro.update().catch(() => {});
+        }
+      });
+    } catch (erro) {
+      console.warn('Não foi possível verificar atualização do LoteriAndo:', erro);
+    }
+  });
+}
+</script>
+
 </body>
 </html>
